@@ -1,27 +1,62 @@
 ---
 title: "Er det høyde som bestemmer inntekt?"
 author: "Av Ann Elisabeth og Heidi Marie Rolfsnes"
-output: html_notebook
+output:
+  pdf_document: default
+  html_notebook: default
 ---
+
+# Innledning
+
+# Statistikk
+
+Innledende tekst til oppgave 2
+
+![](Rplot.png)
+
+![](Rplot01.png)
+
+![](Rplot02.png)
+
+![](Rplot03.png)
+
+Hvor mye tjener vi pr ekstra inch?
+
+En ekstra inxh (2,72cm) gir oss \$2982 ekstra i inntekt pr år.
+
+Er det mer til historien?
+
+# Oppgave 2 - Hoyde 
 
 # Innledning 
 
-# Statistikk 
+1.  Beskrivende statistikk , dvs. kort beskrivelse av dataene
 
-Lag et histogram av variabelen income
+![](images/Skjermbilde%202021-10-27%20kl.%2022.38.07.png)
 
-Hva er forklaringen på utliggerne langt til høyre?
+2.  Lag et histogram av variabelen income
 
-Har vi personer uten inntekt i datasettet?
+![](Rplot04.png)
 
-# Regresjonsanalyse 
+2.1 Hva er forklaringen på utliggerne langt til høyre?
+
+Grunnen til at det ligger en søyle helt til høyre er på grunn av at det
+er en andel personer i utvalget som har en vesentlig høyere inntekt enn
+det resterende utvalget. ut i fra histogrammet kan vi se at fleste
+tjener under 50000.
+
+2.2 Har vi personer uten inntekt i datasettet?
+
+Det finnes en andel personer uten inntekt.
+
+# Regresjonsanalyse
 
 # Resultat
 
-# Konklusjon 
+# Konklusjon
 
 Er det høyde som bestemmer inntekt?
 
-# Litteraturgjennomgang 
+# Litteraturgjennomgang
 
-# Referanser 
+# Referanser
