@@ -3,10 +3,42 @@ title: "Er det høyde som bestemmer inntekt?"
 author: "Av Ann Elisabeth og Heidi Marie Rolfsnes"
 output:
   pdf_document: default
-  html_notebook: default
+  
 ---
 
-# Innledning
+Innledning
+I denne oppgaven vil vi kikke nærmere om høyde har noe å si på inntekten
+man får. Utgangspunket til denne oppgaven bygger på et datasett vi har
+fått utdelt hentet fra National Longitudial study, som er gjennomført på
+vegne av U.S Bureau of Labor statistics.
+
+Oppsummerings statistikker.
+
+I denne tabellen har vi laget en statistikk der vi tar for oss: Inntekt,
+Høyde, Vekt, Alder, Sivil status, Kjønn, Antall år med utdanning og
+Scoren de fikk på AFQT. Statistikkene vi kan se er Min og Max som vi kan
+sammenligne med minste inntekt og høyest inntekt, eller minst alder og
+høyest alder. Median er tallet vi finner i midten. vis vi setter opp
+alle inntektene i stigende rekkefølge er det tallet som er i midten vi
+kaller median (boka side 300). videre kan vi se på Mean. dette er på
+norsk gjennomsnitt. som vil si viss vi plusser sammen alle aldrene til
+personene i utvalget og så deler på antallet vil vi komme frem til
+gjennomsnitts alderen for utvalget vårt.
+
+Ut fra undersøkelsen kan vi se et utvalg på 7006 personer, der 3402 er
+menn og 3604 er kvinner. aldersspennet i utvalget er fra 47 til 56 år,
+der medianen alder er 51 år og gjennomsnittsalderen er 51,33 år.
+Inntektene til de utvalgte går fra 0 USD til 343830 USD, her kan vi også
+se at medianen er 29589,50 USD mens gjennomsnittet er på 41203,90 USD.
+vis vi ser på høyden så er den laveste personen 52 inch og den høyeste
+er 84 Inch.
+
+For å finne ut om høyde har noe å si på inntekten tar vi for oss
+
+Er det høyde som bestemmer inntekt?
+
+# Teori
+
 
 # Statistikk
 
@@ -28,7 +60,6 @@ Er det mer til historien?
 
 # Oppgave 2 - Hoyde 
 
-# Innledning 
 
 1.  Beskrivende statistikk , dvs. kort beskrivelse av dataene
 
@@ -39,6 +70,7 @@ Er det mer til historien?
 ![](Rplot04.png)
 
 2.1 Hva er forklaringen på utliggerne langt til høyre?
+
 
 Grunnen til at det ligger en søyle helt til høyre er på grunn av at det
 er en andel personer i utvalget som har en vesentlig høyere inntekt enn
@@ -55,7 +87,6 @@ Det finnes en andel personer uten inntekt.
 
 # Konklusjon
 
-Er det høyde som bestemmer inntekt?
 
 # Litteraturgjennomgang
 
