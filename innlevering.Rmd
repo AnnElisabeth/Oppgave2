@@ -1,4 +1,27 @@
 ---
-title: "R Notebo"
+title: "Er det høyde som bestemmer inntekt?"
+author: "Av Ann Elisabeth og Heidi Marie Rolfsnes"
 output: html_notebook
 ---
+
+# Innledning 
+
+# Statistikk 
+
+Lag et histogram av variabelen income
+
+Hva er forklaringen på utliggerne langt til høyre?
+
+Har vi personer uten inntekt i datasettet?
+
+# Regresjonsanalyse 
+
+# Resultat
+
+# Konklusjon 
+
+Er det høyde som bestemmer inntekt?
+
+# Litteraturgjennomgang 
+
+# Referanser 
