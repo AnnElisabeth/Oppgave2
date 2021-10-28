@@ -37,7 +37,10 @@ hva er et boxplot?
 
 hva er punkt diagram?
 
+
 hva er regresjonsanalyse og hva blir den brukt til?
+
+
 
 # Statistikk
 
@@ -92,6 +95,10 @@ Når vi ser i histogrammet kan vi se en stor andel med personer som har
 null i inntekt.
 
 # Regresjonsanalyse
+
+Uten inntekt 0:
+
+![](images/Skjermbilde%202021-10-28%20kl.%2020.29.05.png)
 
 # Resultat
 
