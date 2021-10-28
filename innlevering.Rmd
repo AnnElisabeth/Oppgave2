@@ -3,14 +3,12 @@ title: "Er det høyde som bestemmer inntekt?"
 author: "Av Ann Elisabeth og Heidi Marie Rolfsnes"
 output:
   pdf_document: default
-  
 ---
 
-Innledning
-I denne oppgaven vil vi kikke nærmere om høyde har noe å si på inntekten
-man får. Utgangspunket til denne oppgaven bygger på et datasett vi har
-fått utdelt hentet fra National Longitudial study, som er gjennomført på
-vegne av U.S Bureau of Labor statistics.
+Innledning I denne oppgaven vil vi kikke nærmere om høyde har noe å si
+på inntekten man får. Utgangspunket til denne oppgaven bygger på et
+datasett vi har fått utdelt hentet fra National Longitudial study, som
+er gjennomført på vegne av U.S Bureau of Labor statistics.
 
 Oppsummerings statistikker.
 
@@ -38,7 +36,6 @@ For å finne ut om høyde har noe å si på inntekten tar vi for oss
 Er det høyde som bestemmer inntekt?
 
 # Teori
-
 
 # Statistikk
 
@@ -70,7 +67,6 @@ Er det mer til historien?
 
 2.1 Hva er forklaringen på utliggerne langt til høyre?
 
-
 Grunnen til at det ligger en søyle helt til høyre er på grunn av at det
 er en andel personer i utvalget som har en vesentlig høyere inntekt enn
 det resterende utvalget. ut i fra histogrammet kan vi se at fleste
@@ -85,7 +81,6 @@ Det finnes en andel personer uten inntekt.
 # Resultat
 
 # Konklusjon
-
 
 # Litteraturgjennomgang
 
