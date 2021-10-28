@@ -60,11 +60,6 @@ Er det mer til historien?
 
 # Oppgave 2 - Hoyde
 
-<<<<<<< HEAD
-# Innledning
-=======
->>>>>>> 96fd0d3c874eaafb4c7e67d0da7aacd78cba06d7
-
 1.  Beskrivende statistikk , dvs. kort beskrivelse av dataene
 
 ![](images/Skjermbilde%202021-10-27%20kl.%2022.38.07.png)
