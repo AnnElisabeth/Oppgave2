@@ -78,6 +78,10 @@ Det finnes en andel personer uten inntekt.
 
 # Regresjonsanalyse
 
+Uten inntekt 0:
+
+![](images/Skjermbilde%202021-10-28%20kl.%2020.29.05.png)
+
 # Resultat
 
 # Konklusjon
