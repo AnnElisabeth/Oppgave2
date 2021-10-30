@@ -18,18 +18,17 @@ undersøkelsen.
 # Teori
 
 Formålet med denne oppgaven er å se om det er høyden som bestemmer
-hvilken inntekt vi får.
-Når vi skal sammenligne inntekter er det nok ikke høyde som virker som
-den største påvirkningskraften. Det vi ofte hører i media er jo at en
-sammenligner inntekt på kjønn, alder og bosted. Vi kan for eksempel si at menn
-tjener mer enn kvinner, at eldre tjenere mer en yngre eller at folk på Østlandet 
-tjener mer enn folk i Nord-Norge. Noen av disse skillene er nok ikke like store
-lengre. Men at det er et skille er det ingen tvil om.
+hvilken inntekt vi får. Når vi skal sammenligne inntekter er det nok
+ikke høyde som virker som den største påvirkningskraften. Det vi ofte
+hører i media er jo at en sammenligner inntekt på kjønn, alder og
+bosted. Vi kan for eksempel si at menn tjener mer enn kvinner, at eldre
+tjenere mer en yngre eller at folk på Østlandet tjener mer enn folk i
+Nord-Norge. Noen av disse skillene er nok ikke like store lengre. Men at
+det er et skille er det ingen tvil om.
 
 Når vi nå skal finne ut om høyde har en påvirkning på inntekt vil vi
-bruke forskjellige diagram og analyser. 
-Først vil vi gjennomføre en deskriptiv statistikk,for å
-få fram litt informasjon om utvalget vårt.
+bruke forskjellige diagram og analyser. Først vil vi gjennomføre en
+deskriptiv statistikk,for å få fram litt informasjon om utvalget vårt.
 
 Vi vil gjennomføre en boxplot som er en miks av et histogram og en
 numerisk analyse.
@@ -38,21 +37,19 @@ Boxploten dreier seg om data rundt medianen og viser hvordan spredningen
 er i dataen.(fin kilde).
 
 vi vil gjennomføre et spredningsdiagram (scatter plott), i den vil vi få
-en oversikt over forhold mellom inntekt og høyde. 
-Hvert punkt i diagrammet representerer kominasjonen mellom høyde og 
-inntekt pr person som er med.
+en oversikt over forhold mellom inntekt og høyde. Hvert punkt i
+diagrammet representerer kominasjonen mellom høyde og inntekt pr person
+som er med.
 
 Vi kommer også til å bruke regresjonsanalyse, dette bruker vi for å
-finne sammenhengen av variabler.
-Vi bruker da en avhengig og kan bruke en eller flere uavhengige
-variabler (boka s.458). Vår avhengige variabel er inntekt, som uavhengig
-variabel bruker vi høyde men vi kommer også til å se på kjønn (evt
-fleire)
+finne sammenhengen av variabler. Vi bruker da en avhengig og kan bruke
+en eller flere uavhengige variabler (boka s.458). Vår avhengige variabel
+er inntekt, som uavhengig variabel bruker vi høyde men vi kommer også
+til å se på kjønn (evt fleire)
 
 Formålet med regresjonsanalyse er tre ting, være beskrivende,
 predikasjon og årsaksforklaring. Men disse er ikke nødvendigvis
 gjensidig utelukkende (bok s.335)
-
 
 # Statistikk
 
@@ -65,30 +62,28 @@ kable(summary(heights[,1:4]))
 
 ```{r}
 heights$heightInt <- cut(heights$height, breaks = 8)
-kable(summary(heights [,5:9]))
+kable(summary(heights[,5:9]))
 ```
 
 I denne tabellen har vi laget en statistikk der vi tar for oss: Inntekt,
-Høyde, Vekt, Alder,
-Sivil status, Kjønn, Antall år med utdanning og Scoren de fikk på AFQT.
-Statistikkene vi kan se er Min og Max som vi kan sammenligne med minste
-inntekt
-og høyest inntekt, eller minst alder og høyest alder. Median er tallet
-vi finner i midten. vis vi setter opp alle inntektene i stigende
-rekkefølge er det tallet som er i midten vi kaller median (boka side
-300). videre kan vi se på Mean. dette er på norsk gjennomsnitt. som vil
-si viss vi plusser sammen alle
-aldrene til personene i utvalget og så deler på antallet vil vi komme
-frem til gjennomsnitts alderen for utvalget vårt.
+Høyde, Vekt, Alder, Sivil status, Kjønn, Antall år med utdanning og
+Scoren de fikk på AFQT. Statistikkene vi kan se er Min og Max
+
+som vi kan sammenligne med minste inntekt og høyest inntekt, eller minst
+alder og høyest alder. Median er tallet vi finner i midten. vis vi
+setter opp alle inntektene i stigende rekkefølge er det tallet som er i
+midten vi kaller median (boka side 300). videre kan vi se på Mean. dette
+er på norsk gjennomsnitt. som vil si viss vi plusser sammen alle aldrene
+til personene i utvalget og så deler på antallet vil vi komme frem til
+gjennomsnitts alderen for utvalget vårt.
 
 Ut fra undersøkelsen kan vi se et utvalg på 7006 personer, der 3402 er
-menn og 3604 er
-kvinner. aldersspennet i utvalget er fra 47 til 56 år, der medianen
-alder er 51 år og gjennomsnittsalderen er 51,33 år. Inntektene til de
-utvalgte går fra 0 USD til 343830 USD, her kan vi også se at medianen er
-29589,50 USD mens gjennomsnittet er på 41203,90 USD. vis vi ser på
-høyden så er den laveste
-personen 52 inch og den høyeste er 84 Inch.
+menn og 3604 er kvinner. aldersspennet i utvalget er fra 47 til 56 år,
+der medianen alder er 51 år og gjennomsnittsalderen er 51,33 år.
+Inntektene til de utvalgte går fra 0 USD til 343830 USD, her kan vi også
+se at medianen er 29589,50 USD mens gjennomsnittet er på 41203,90 USD.
+vis vi ser på høyden så er den laveste personen 52 inch og den høyeste
+er 84 Inch.
 
 ```{r}
 ggplot(heights, mapping = aes(x = height, y = income)) + geom_point()
