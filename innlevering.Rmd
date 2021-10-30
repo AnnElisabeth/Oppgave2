@@ -26,10 +26,6 @@ tjener mer enn kvinner, at eldre tjenere mer en yngre eller at folk på Østland
 tjener mer enn folk i Nord-Norge. Noen av disse skillene er nok ikke like store
 lengre. Men at det er et skille er det ingen tvil om.
 
-<<<<<<< HEAD
-=======
- 
->>>>>>> b2d75ef0a9955ba98877995102db1224afe4eda1
 Når vi nå skal finne ut om høyde har en påvirkning på inntekt vil vi
 bruke forskjellige diagram og analyser. 
 Først vil vi gjennomføre en deskriptiv statistikk,for å
@@ -37,12 +33,8 @@ få fram litt informasjon om utvalget vårt.
 
 Vi vil gjennomføre en boxplot som er en miks av et histogram og en
 numerisk analyse.
-<<<<<<< HEAD
 
 Boxploten dreier seg om data rundt medianen og viser hvordan spredningen
-=======
-boxploten dreier seg om data rundt medianen og viser hvordan spredningen
->>>>>>> b2d75ef0a9955ba98877995102db1224afe4eda1
 er i dataen.(fin kilde).
 
 vi vil gjennomføre et spredningsdiagram (scatter plott), i den vil vi få
