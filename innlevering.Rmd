@@ -105,7 +105,6 @@ Er det mer til historien?
 eval = FALSE
 data("heights", package = "modelr")
 hoyde= heights
-
 ```
 
 1.  Beskrivende statistikk , dvs. kort beskrivelse av dataene
@@ -115,7 +114,7 @@ hoyde= heights
     ```{r}
     library(ggplot2)
     data("heights")
-    head(heights)
+    head(hoyde)
 
     ```
 
@@ -200,7 +199,30 @@ hoyde %>%
 ```
 
 ```{r}
-lm1 <- "income ~ height + weight"
+hoyde %>% 
+  mutate(
+  married = factor(
+    case_when(
+      marital == "married" ~ TRUE,
+      TRUE ~ FALSE
+    )
+  )
+)
+
+```
+
+```{r}
+huxreg(
+  list("Modell 4" = lm3, "Modell 5" = lm3_nhi),
+ error_format = "[{statistic}]"
+ ,note = "Regresjonstabell 3: {stars}. T statistics in brackets."
+ )
+
+```
+
+```{r}
+mod1 <- "inntekt ~ hoyde_cm"
+lm1 <- (mod1, data = hoyde, subset = complete.cases(hoyde))
 ```
 
 ```{r}
@@ -208,9 +230,9 @@ Summary(lm1)
 
 ```
 
-# Resultat
-
 # Konklusjon
+
+Det er ikke høyde som bestemmer inntekt. Forskjellene er mellom kjønn.
 
 # Litteraturgjennomgang
 
