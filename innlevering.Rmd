@@ -37,10 +37,7 @@ hva er et boxplot?
 
 hva er punkt diagram?
 
-
 hva er regresjonsanalyse og hva blir den brukt til?
-
-
 
 # Statistikk
 
