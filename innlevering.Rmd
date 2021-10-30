@@ -2,7 +2,10 @@
 title: "Er det høyde som bestemmer inntekt?"
 author: "Av Ann Elisabeth og Heidi Marie Rolfsnes"
 output:
+  word_document: default
   pdf_document: default
+  html_document:
+    df_print: paged
 ---
 
 Innledning
@@ -43,29 +46,58 @@ hva er regresjonsanalyse og hva blir den brukt til?
 
 # Statistikk
 
-Innledende tekst til oppgave 2
+Innledende tekst til oppgave
 
-![](Rplot.png)
+```{r}
+heights$heightInt <- cut(heights$height, breaks = 8)
+kable(summary(heights [,1:4]))
+```
+
+```{r}
+heights$heightInt <- cut(heights$height, breaks = 8)
+kable(summary(heights [,5:9]))
+```
+
+```{r}
+ggplot(heights, mapping = aes(x = height, y = income)) + geom_point()
+
+```
 
 Diagrammet viser høyde i forhold til inntekt. På den vertikale linjen
-finner vi innteken, og på den horisontale finner vi høyden. Her ser vi
+finner vi inntekten, og på den horisontale finner vi høyden. Her ser vi
 at en liten gruppe med folk i alle høyder som har en relativt høyere
 inntekt en resten, mellom denne gruppen og resten av utvalget er det et
 stort gap. noe vi kan kjenne oss igjen i når vi ser på den deskriptive
 statistikken.
 
-![](Rplot01.png)
+```{r}
+heightsPosInc <- subset(heights, income > 0)
+ggplot(heightsPosInc, mapping = aes(x = heightInt, y = income)) +scale_y_continuous(trans = scales::log_trans()) +geom_boxplot()
+```
 
 I dette Boxplotet ser vi inntekt i forhold til HeightInt
 
-![](Rplot02.png)
+```{r}
+heightsPosInc <- subset(heights, income > 0)
+ggplot(heightsPosInc, mapping = aes(x = height, y = income)) +scale_y_continuous(trans = scales::log_trans()) +geom_point(position = "jitter") +geom_smooth(method ='lm')
+## ‘geom_smooth()‘ using formula ’y ~ x’
+```
 
 I punkt diagrammet ser vi inntekt og høyde mot hverandre, hver prikk
 representerer en person i utvalget med personens høyde og inntekt.
 
-![](Rplot03.png)
+```{r}
+heightsPosInc <- subset(heights, income > 0)
+ggplot(heightsPosInc, mapping = aes(x = height, y = income)) +geom_point(position = "jitter") +geom_smooth(method ='lm')
+
+```
 
 Hvor mye tjener vi pr ekstra inch?
+
+```{r}
+summary(lm(income ~ height, data = heights))
+
+```
 
 En ekstra inch (2,72cm) gir oss \$2982 ekstra i inntekt pr år.
 
@@ -73,13 +105,31 @@ Er det mer til historien?
 
 # Oppgave 2 - Hoyde
 
+```{r}
+eval = FALSE
+data("heights", package = "modelr")
+hoyde= heights
+
+```
+
 1.  Beskrivende statistikk , dvs. kort beskrivelse av dataene
 
-![](images/Skjermbilde%202021-10-27%20kl.%2022.38.07.png)
-
+```{=html}
+<!-- -->
+```
 2.  Lag et histogram av variabelen income
 
-![](Rplot04.png)
+    ```{r}
+    library(ggplot2)
+    data("heights")
+    head(heights)
+
+    ```
+
+    ```{r}
+    hist(heights$income, main = "Income Histogram", xlab = "Income")
+
+    ```
 
 2.1 Hva er forklaringen på utliggerne langt til høyre?
 
@@ -90,12 +140,16 @@ tjener under 50000.
 
 2.2 Har vi personer uten inntekt i datasettet?
 
-Når vi ser i histogrammet kan vi se en stor andel med personer som har
-null i inntekt.
+Når vi ser i histogrammet kan vi se en stor andel med personer som
+mindre enn 50000 i inntekt.
 
 # Regresjonsanalyse
 
 Uten inntekt 0:
+
+```{r}
+m1 <- "income ~ height + weight"
+```
 
 ![](images/Skjermbilde%202021-10-28%20kl.%2020.29.05.png)
 
@@ -106,3 +160,4 @@ Uten inntekt 0:
 # Litteraturgjennomgang
 
 # Referanser
+
