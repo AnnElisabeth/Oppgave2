@@ -5,31 +5,33 @@ output:
   pdf_document: default
 ---
 
-Innledning I denne oppgaven vil vi kikke nærmere om høyde har noe å si
-på inntekten man får. Utgangspunket til denne oppgaven bygger på et
-datasett vi har fått utdelt hentet fra National Longitudial study, som
-er gjennomført på vegne av U.S Bureau of Labor statistics.
+Innledning
 
-Oppsummerings statistikker.
+I denne oppgaven vil vi se nærmere på om høyde har noe å si på inntekt.
+Utgangspunktet for denne oppgaven bygger på et datasett vi har fått
+utdelt. Det er hentet fra National Longitudial study, som er gjennomført
+på vegne av U.S Bureau of Labor statistics.
 
-I denne tabellen har vi laget en statistikk der vi tar for oss: Inntekt,
-Høyde, Vekt, Alder, Sivil status, Kjønn, Antall år med utdanning og
-Scoren de fikk på AFQT. Statistikkene vi kan se er Min og Max som vi kan
+Oppsummeringsstatistikker.
+
+I denne tabellen har vi laget en statistikk der vi tar for oss: inntekt,
+høyde, vekt, alder, sivilstatus, kjønn, antall år med utdanning og
+scoren de fikk på AFQT. Statistikkene vi ser er min og max som vi kan
 sammenligne med minste inntekt og høyest inntekt, eller minst alder og
-høyest alder. Median er tallet vi finner i midten. vis vi setter opp
+høyest alder. Median er tallet vi finner i midten. Hvis vi setter opp
 alle inntektene i stigende rekkefølge er det tallet som er i midten vi
-kaller median (boka side 300). videre kan vi se på Mean. dette er på
-norsk gjennomsnitt. som vil si viss vi plusser sammen alle aldrene til
-personene i utvalget og så deler på antallet vil vi komme frem til
-gjennomsnitts alderen for utvalget vårt.
+kaller median (boka side 300). videre kan vi se på Mean. På norsk betyr
+det gjennomsnitt. Det vil si at vi plusser sammen alle aldrene til
+personene i utvalget og så deler så på antallet. Vi kommer frem til
+gjennomsnittsalderen for utvalget vårt.
 
 Ut fra undersøkelsen kan vi se et utvalg på 7006 personer, der 3402 er
-menn og 3604 er kvinner. aldersspennet i utvalget er fra 47 til 56 år,
+menn og 3604 er kvinner. Aldersspennet i utvalget er fra 47 til 56 år,
 der medianen alder er 51 år og gjennomsnittsalderen er 51,33 år.
 Inntektene til de utvalgte går fra 0 USD til 343830 USD, her kan vi også
 se at medianen er 29589,50 USD mens gjennomsnittet er på 41203,90 USD.
-vis vi ser på høyden så er den laveste personen 52 inch og den høyeste
-er 84 Inch.
+Om vi ser på høyden så er den laveste personen 52 inch og den høyeste 84
+Inch.
 
 # Teori
 
@@ -45,27 +47,27 @@ Innledende tekst til oppgave 2
 
 ![](Rplot.png)
 
-Dette diagrammet viser høyde i forhold til inntekt. På den vertikale
-linjen finner vi innteken, å på den horisontale finner vi høyden. Her
-ser vi at en liten gruppe med folk i alle høyder som har en relativt
-høyere inntekt en resten, mellom denne gruppen og resten av utvalget er
-det et stort gap. noe vi kan kjenne oss igjen i når vi så på den
-deskriptive statistikken.
+Diagrammet viser høyde i forhold til inntekt. På den vertikale linjen
+finner vi innteken, og på den horisontale finner vi høyden. Her ser vi
+at en liten gruppe med folk i alle høyder som har en relativt høyere
+inntekt en resten, mellom denne gruppen og resten av utvalget er det et
+stort gap. noe vi kan kjenne oss igjen i når vi ser på den deskriptive
+statistikken.
 
 ![](Rplot01.png)
 
-I denne Boxplotet ser vi inntekt i forhold til HeightInt
+I dette Boxplotet ser vi inntekt i forhold til HeightInt
 
 ![](Rplot02.png)
 
-I dette punkt diagrammet ser vi inntekt og høyde mot hverandre, hver
-prikk representerer en person i utvalget med personens høyde og inntekt.
+I punkt diagrammet ser vi inntekt og høyde mot hverandre, hver prikk
+representerer en person i utvalget med personens høyde og inntekt.
 
 ![](Rplot03.png)
 
 Hvor mye tjener vi pr ekstra inch?
 
-En ekstra inxh (2,72cm) gir oss \$2982 ekstra i inntekt pr år.
+En ekstra inch (2,72cm) gir oss \$2982 ekstra i inntekt pr år.
 
 Er det mer til historien?
 
