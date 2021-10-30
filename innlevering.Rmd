@@ -2,6 +2,7 @@
 title: "Er det høyde som bestemmer inntekt?"
 author: "Av Ann Elisabeth og Heidi Marie Rolfsnes"
 output:
+  word_document: default
   pdf_document: default
 ---
 
@@ -33,7 +34,13 @@ er 84 Inch.
 
 # Teori
 
-hva er et boxplot?
+Formålet med denne oppgaven er å se om høyden er det som bestemmer hvilken inntekt vi får. Når vi skal sammenligne inntekt er det nok ikke høyde som virker som den største påvirknings kraften. det vi ofte hører i media er jo at en sammenligner inntekt på kjønn, alder og bosted. at foreksempel men tjener mer en kvinner, at eldre tjenere mer en yngre eller at folk på østlandet tjener mer enn folk i nord norge. noen av disse skillene er nok ikke like store lengre. men at det er et skille er det ingen tvil om. 
+
+når vi nå skal finne ut om høyde har en påvirkning på inntekt vil vi bruke forskjellige diagram og analyser. først vil vi gjennomføre en deskriptiv statisitikk, for å få fram litt informasjon om utvalget vårt.  
+
+vi vil gjennomføre en boxplot som er en miks av et histogram og en numerisk analyse. boxploten dreier seg om data rundt medianen og viser hvordan spredningen er i dataen. (fin kilde). 
+
+vi vil gjennomføre et punkt diagram, 
 
 hva er punkt diagram?
 
