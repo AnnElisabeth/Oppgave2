@@ -32,7 +32,7 @@ se at medianen er 29589,50 USD mens gjennomsnittet er på 41203,90 USD.
 Om vi ser på høyden så er den laveste personen 52 inch og den høyeste 84
 Inch.
 
-# Teori
+# Teori 
 
 hva er et boxplot?
 
