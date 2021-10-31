@@ -1,8 +1,7 @@
 ---
 title:"Er det høyde som bestemmer inntekt?" 
 author: "Av Ann Elisabeth og Heidi Marie Rolfsnes"
-output: 
-html_document
+output: html_document
 ---
 
 ------------------------------------------------------------------------
