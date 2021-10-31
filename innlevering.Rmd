@@ -38,7 +38,7 @@ Vi vil gjennomføre en boxplot som er en miks av et histogram og en
 numerisk analyse.
 
 Boxploten dreier seg om data rundt medianen og viser hvordan spredningen
-er i dataen.(fin kilde).
+er i dataen
 
 vi vil gjennomføre et spredningsdiagram (scatter plott), i den vil vi få
 en oversikt over forhold mellom inntekt og høyde. Hvert punkt i
