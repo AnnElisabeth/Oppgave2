@@ -141,13 +141,22 @@ hoyde= heights
 
 1.  Beskrivende statistikk , dvs. kort beskrivelse av dataene
 
-2.  Lag et histogram av variabelen income
+    I denne oversikten ser vi skilte kvinner på 49 år og 68 inch samt
+    gifte menn på 52 år og 65 inch er de som tjener mest. ut i fra denne
+    oversikten. ut i fra høyde ser vi at gifte kvinner på 70 inch tjener
+    betydelig lavere enn skilte kvinner på 68 inch. Vi skal nå se
+    nermere på statistikkene og lager et histogram.
 
     ```{r}
     library(ggplot2)
     data("heights")
     head(heights)
     ```
+
+    2.  Lag et histogram av variabelen income
+
+        I dette histogramet ser vi en oversikt over hvor mye hver person
+        har i inntekt.
 
     ```{r}
     hist(heights$income, main = "Income Histogram", xlab = "Income")
@@ -163,8 +172,12 @@ tjener under 50000.
 
 2.2 Har vi personer uten inntekt i datasettet?
 
-Når vi ser i histogrammet kan vi se en andel personer med mindre enn 0 i
-inntekt.
+Når vi ser i histogrammet kan vi se en andel personer med 0 i inntekt.
+
+# Regresjonsanalyse
+
+Nå skal vi gjennomføre regresjonsanalyse. Først har vi laget en plot som
+viser inntekt i forhold til høyden.
 
 ```{r}
 hoyde %>% 
@@ -177,9 +190,9 @@ geom_smooth(method = "lm", formula = 'y ~ x', se = FALSE)
 
 ```
 
-# Regresjonsanalyse
-
-Uten inntekt 0:
+så har vi tatt bort de som har 0 i inntekt, for å teste modellens
+robusthet. vi bruker filter fra funksjonen tidyverse. vi har lagt inn
+skille for å se forskjell på kvinner og menn.
 
 ```{r}
 # tømmer hoyde datasettet inn i en pipe
@@ -192,7 +205,11 @@ Uten inntekt 0:
 
 ```
 
-Inntekt mot høyde.
+I dette plottet ser vi inntekt mot utdanning og kjønn. Her ser vi at
+menn ligger noe høyere enn kvinner i forhold til inntekt, fordi om de
+har like lang utdanning. Her ser vi at høyre siden består mest av menn.
+Generelt er mennene høyere enn kvinnene i dette utvalget, men utfra
+denne oversikten kan vi ikke si at høyde har en påvirkning på inntekt.
 
 ```{r}
 hoyde %>% 
@@ -203,9 +220,10 @@ hoyde %>%
    geom_smooth(method = "lm", formula = 'y ~ x', se = FALSE)
 ```
 
-Når vi splitter på kjønn
-
-Hvert med 5b inch bredde (høyde i intervaller
+I denne boxplotten har vi delt oversikten på kjønn. et boxplott tar
+utgangspunkt i median. Vi kan her se at høye menn på 80 inch har flest
+treff på 50 000 dollar. mens på kvinne siden er det flest damer som er
+55 inch som har 25000 doller i inntekt.
 
 ```{r}
 hoyde %>% 
@@ -217,7 +235,10 @@ hoyde %>%
 
 ```
 
-Inntekt fordelt på kjønn
+I dette histogrammet har vi også delt inn i kjønn, som vi så i den
+deskriptive statistikken så var det 3402 menn og 3604 kvinner som deltok
+i utvalget. Når vi ser på denne oversikten ser vi at det er flere menn
+en kvinner som har høyere inntekt.
 
 ```{r}
 hoyde %>% 
@@ -228,6 +249,8 @@ hoyde %>%
    geom_histogram()
 
 ```
+
+I denne oversikten har vi sett på sivilstatus.
 
 ```{r}
 hoyde %>% 
