@@ -344,3 +344,13 @@ huxreg(
 Det er ikke høyde som bestemmer inntekt. Forskjellene er mellom kjønn
 
 # Referanse
+
+```{r}
+knitr::write_bib()
+
+```
+
+```{r}
+knitr::write_bib(file = 'packages.bib')
+
+```
