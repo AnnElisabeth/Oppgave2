@@ -137,6 +137,7 @@ summary(lm(income ~ height, data = heights))
 
 En ekstra inch (2,72cm) gir oss \$2982 ekstra i inntekt pr år.
 
+
 Er det mer til historien?
 
 # Oppgave 2 - Hoyde
@@ -167,7 +168,7 @@ hoyde= heights
         har i inntekt.
 
     ```{r}
-    hist(heights$income, main = "Income Histogram", xlab = "Income")
+    hist(heights$income, main = "Histogram over Inntekt", xlab = "Income")
 
     ```
 
@@ -218,6 +219,58 @@ menn ligger noe høyere enn kvinner i forhold til inntekt, fordi om de
 har like lang utdanning. Her ser vi at høyre siden består mest av menn.
 Generelt er mennene høyere enn kvinnene i dette utvalget, men utfra
 denne oversikten kan vi ikke si at høyde har en påvirkning på inntekt.
+
+```{r}
+heights <- heights %>%
+  mutate(
+    income_NOK = income * 10, 
+    height_cm = height * 2,54, 
+    edu_binned = cut_interval(
+      education,
+      breaks = c(0, 12, 14, 16, 22),
+      labels = c("hs", "lc", "cu", "cg"),
+      right = TRUE
+    ), 
+    age_binned = cut_number(
+      age, 
+      n = 5
+    )
+  )
+```
+
+```{r}
+heights %>%
+  filter(!is.na(edu_binned)) %>%
+  filter(!is.na(afqt)) %>%
+  filter(income_NOK < 2000000) %>%
+  filter(income > 0) %>%
+  ggplot(
+    mapping = aes(
+      x = height_cm,
+      y = income_NOK
+    )
+  ) + 
+  geom_jitter(
+    mapping = aes(
+      shape = marital, 
+      colour = marital
+    ),
+    size = 1.25,
+    alpha = 0.30,
+  ) + 
+  geom_smooth(
+    formula = y ~ x, 
+    method = MASS::rlm,
+    Colour = "black",
+    lwd = 0.75,
+    se = FALSE
+                       ) +
+      facet_grid(edu_binned ~sex) +
+      xlab("Høyde (140 - 220cm)") + 
+      ylab("inntekt") +
+      ggtitle("inntektsfordeling basert på kjønn, utdanningsnivå og høyde") +
+  theme(legend.position = "bottom")
+```
 
 ```{r}
 hoyde %>% 
@@ -426,6 +479,7 @@ heights %>%
   facet_grid(~ sex)
 ```
 
+<<<<<<< HEAD
 
 
 
@@ -555,5 +609,137 @@ Det er ikke høyde som bestemmer inntekt. Forskjellene er mellom kjønn
 Arne},
 
 	year = {2011},
+=======
+
+
+```{r}
+heights %>%
+  filter(!is.na(afqt)) %>%
+  filter(!is.na(edu_binned)) %>%
+  filter(!is.na(age_binned)) %>%
+  filter(income > 5000 & income < 178000) %>%
+  ggplot(
+    mapping = aes(
+      x = afqt,
+      y = income
+    )
+  ) + 
+  geom_jitter(
+    mapping = aes(
+      colour = age_binned
+    ),
+    size = 1.25,
+    alpha = 0.30,
+  ) + 
+  geom_smooth(
+    formula = y ~ x, 
+    method = MASS::rlm,
+    se = FALSE,
+    colour = "brown") +
+      facet_grid(edu_binned ~sex) +
+      xlab("afqt") + 
+      ylab("inntekt") +
+      ggtitle("Inntektsfordeling basert på kjønn, utdanningsnivå og evnenivå (robust regresjon)") + 
+  theme(legend.position = "bottom")
+```
+
+```{r}
+heights %>%
+  filter(income_NOK > 50000) %>%
+  filter(income_NOK < 2000000) %>%
+  filter(!is.na(afqt)) %>%
+  ggplot(
+    mapping = aes(
+      x = afqt,
+      y = log(income_NOK),
+      colour = edu_binned
+    )
+  ) +
+  geom_jitter(
+    size = 1.25,
+    alpha = 0.30, 
+  ) + 
+  geom_smooth(
+    formula = y ~ x,
+    method = lm, 
+    se = FALSE,
+    lwd = 1
+  ) + 
+  facet_grid(~ sex) +
+  xlab("afqt") + 
+  ylab("Inntekt") +
+  ggtitle("Inntektsfordeling basert på evnenivå og kjønn for ulike utdanningsnivå (inntekt logtransformert og sensurert for både lave og høye inntekt") 
+theme(legend.position = "bottom")
+```
+
+```{r}
+heights %>%
+  ggplot(
+    mapping = aes(
+      x = height,
+      y = afqt
+    )
+  ) +
+  geom_jitter(mappin = aes(colour =age_binned), 
+              alpha = 0.30,
+              ) +
+  geom_smooth(
+    formula = y ~ x,
+    method = MASS::rlm,
+    se = FALSE,
+    lwd = 0.55, 
+    colour = "black"
+  ) +
+  facet_grid(~ sex) +
+  xlab("height") + 
+  ggtitle("Evnenivå og høyde") + 
+  theme(legend.position = "bottom")
+
+```
+
+# Konklusjon
+
+Det er ikke høyde som bestemmer inntekt. Forskjellene er mellom kjønn
+
+# Referanse
+
+\<div id="refs\>
+
+</div>
+
+\@book{landerEveryone,
+
+    address = {USA},
+
+    edition = {Second Edition},
+
+    title = {R for {Everyone}},
+
+    language = {English},
+
+    publisher = {Pearson Education, Inc.},
+
+    author = {Lander, Jarad P.},
+
+}
+
+\@book{johannessenForskningsmetodeOkonomiskadministrativeFag2011,
+
+    edition = {3. Utgave},
+
+    title = {Forskningsmetode for Økonomisk-administrative fag},
+
+    isbn = {978-82-7935-319-5},
+
+    language = {norsk},
+
+    publisher = {Abstrakt Forlag},
+
+    author = {Johannessen, Asbjørn and Christoffersen, Line and Tufte, Per
+
+Arne},
+
+    year = {2011},
+>>>>>>> ecc14e41d2103b3214422316c033081ee775f346
 
 }
