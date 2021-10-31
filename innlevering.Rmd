@@ -266,28 +266,74 @@ hoyde %>%
 ```
 
 ```{r}
+ hoyde %>% 
+   filter(income > 0) %>% 
+   filter(income < 340000) %>% 
+   ggplot(mapping = aes(x = marital, y = income, colour = sex)) +
+   geom_point(mapping = aes(colour = sex), alpha = 0.5) +
+   geom_smooth(method = "lm", formula = 'y ~ x', se = FALSE) 
+```
+
+```{r}
+library(huxtable)
+```
+
+```{r}
+summary(heights)
+```
+
+```{r}
 huxreg(
-  list("Modell 4" = lm3, "Modell 5" = lm3_nhi),
- error_format = "[{statistic}]"
- ,note = "Regresjonstabell 3: {stars}. T statistics in brackets."
- )
+  list("Modell 1" = lm3, "Modell 2" = lm3_red),
+  error_format = "[{statistic}]",
+  note = "Regresjonstabell 3: {stars}. T statistics in brackets."
+  )
 
 ```
 
 ```{r}
-mod1 <- "inntekt ~ hoyde_cm"
-lm1 <- (mod1, data = hoyde, subset = complete.cases(hoyde))
+lm1 <- lm(income ~ height, data = heights)
+lm2 <- lm(income ~ height + sex + age, data = heights)
+lm3 <- lm(income ~ sex + education + marital, data = heights)
+
 ```
 
 ```{r}
-Summary(lm1)
+summary(lm2)
+
+```
+
+```{r}
+huxreg(lm1, lm2, lm3)
+
+```
+
+```{r}
+huxreg(lm1, lm2, lm3,
+       error_format = "[{statistic}]",
+       note         = "{stars}. T statistics in brackets."
+       )
+
+```
+
+```{r}
+lm1_red <- lm(income ~ height, data = heights[-c(0,5, 340000), ])
+lm2_red <- lm(income ~ height + sex + age,data = heights[-c(0,5, 340000), ])
+lm3_red <- lm(income ~ sex + education + marital,data = heights[-c(0,5, 340000), ])
+
+```
+
+```{r}
+huxreg(
+  lm3, lm3_red,
+  error_format = "[{statistic}]",
+  note         = "{stars}. T statistics in brackets."
+  )
 
 ```
 
 # Konklusjon
 
-Det er ikke høyde som bestemmer inntekt. Forskjellene er mellom kjønn.
-
-# Litteraturgjennomgang
+Det er ikke høyde som bestemmer inntekt. Forskjellene er mellom kjønn
 
 # Referanser
