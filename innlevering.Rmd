@@ -10,14 +10,16 @@ html_document:
 # Innledning
 
 I denne oppgaven vil vi se nærmere på om høyde har noe å si på inntekt.
-Utgangspunktet for denne oppgaven bygger på et datasett vi har fått
-utdelt. Det er hentet fra National Longitudial study, som er gjennomført
-på vegne av U.S Bureau of Labor statistics.
+Utgangspunktet for denne oppgaven bygger på datasettet heights fra
+pakken modelr. Den har vi fått utdelt. Det er hentet fra National
+Longitudial study, som er gjennomført på vegne av U.S Bureau of Labor
+statistics.
 
-vi skal bruke GitHub, RStudio og Ggplot når vi skal gjennomføre denne
-undersøkelsen.
+Vi skal bruke GitHub, RStudio, og Ggplot når vi skal gjennomføre denne
+undersøkelsen. Oppgaven går ut på å lage forskjellige statistikker rundt
+Heights.
 
-# Teori
+# Literaturgjennomgang
 
 Formålet med denne oppgaven er å se om det er høyden som bestemmer
 hvilken inntekt vi får. Når vi skal sammenligne inntekter er det nok
@@ -53,9 +55,7 @@ Formålet med regresjonsanalyse er tre ting, være beskrivende,
 predikasjon og årsaksforklaring. Men disse er ikke nødvendigvis
 gjensidig utelukkende (bok s.335)
 
-# Statistikk
-
-Innledende tekst til oppgave
+\#Innledende tekst til oppgave
 
 ```{r}
 heights$heightInt <- cut(heights$height, breaks = 8)
