@@ -136,6 +136,7 @@ summary(lm(income ~ height, data = heights))
 
 En ekstra inch (2,72cm) gir oss \$2982 ekstra i inntekt pr år.
 
+
 Er det mer til historien?
 
 # Oppgave 2 - Hoyde
@@ -166,7 +167,7 @@ hoyde= heights
         har i inntekt.
 
     ```{r}
-    hist(heights$income, main = "Income Histogram", xlab = "Income")
+    hist(heights$income, main = "Histogram over Inntekt", xlab = "Income")
 
     ```
 
@@ -217,6 +218,58 @@ menn ligger noe høyere enn kvinner i forhold til inntekt, fordi om de
 har like lang utdanning. Her ser vi at høyre siden består mest av menn.
 Generelt er mennene høyere enn kvinnene i dette utvalget, men utfra
 denne oversikten kan vi ikke si at høyde har en påvirkning på inntekt.
+
+```{r}
+heights <- heights %>%
+  mutate(
+    income_NOK = income * 10, 
+    height_cm = height * 2,54, 
+    edu_binned = cut_interval(
+      education,
+      breaks = c(0, 12, 14, 16, 22),
+      labels = c("hs", "lc", "cu", "cg"),
+      right = TRUE
+    ), 
+    age_binned = cut_number(
+      age, 
+      n = 5
+    )
+  )
+```
+
+```{r}
+heights %>%
+  filter(!is.na(edu_binned)) %>%
+  filter(!is.na(afqt)) %>%
+  filter(income_NOK < 2000000) %>%
+  filter(income > 0) %>%
+  ggplot(
+    mapping = aes(
+      x = height_cm,
+      y = income_NOK
+    )
+  ) + 
+  geom_jitter(
+    mapping = aes(
+      shape = marital, 
+      colour = marital
+    ),
+    size = 1.25,
+    alpha = 0.30,
+  ) + 
+  geom_smooth(
+    formula = y ~ x, 
+    method = MASS::rlm,
+    Colour = "black",
+    lwd = 0.75,
+    se = FALSE
+                       ) +
+      facet_grid(edu_binned ~sex) +
+      xlab("Høyde (140 - 220cm)") + 
+      ylab("inntekt") +
+      ggtitle("inntektsfordeling basert på kjønn, utdanningsnivå og høyde") +
+  theme(legend.position = "bottom")
+```
 
 ```{r}
 hoyde %>% 
@@ -272,6 +325,9 @@ hoyde %>%
 
 ```
 
+
+
+
 ```{r}
  hoyde %>% 
    filter(income > 0) %>% 
@@ -281,6 +337,9 @@ hoyde %>%
    geom_smooth(method = "lm", formula = 'y ~ x', se = FALSE) 
 ```
 
+
+
+
 ```{r}
 library(huxtable)
 ```
@@ -288,6 +347,9 @@ library(huxtable)
 ```{r}
 summary(heights)
 ```
+
+
+
 
 ```{r}
 huxreg(
@@ -298,6 +360,9 @@ huxreg(
 
 ```
 
+
+
+
 ```{r}
 lm1 <- lm(income ~ height, data = heights)
 lm2 <- lm(income ~ height + sex + age, data = heights)
@@ -305,9 +370,14 @@ lm3 <- lm(income ~ sex + education + marital, data = heights)
 
 ```
 
+
+
+
 ```{r}
 summary(lm2)
 ```
+
+
 
 ```{r}
 huxreg(lm1, lm2, lm3)
@@ -329,6 +399,9 @@ lm3_red <- lm(income ~ sex + education + marital,data = heights[-c(0,5, 340000),
 
 ```
 
+
+
+
 ```{r}
 huxreg(
   lm3, lm3_red,
@@ -337,6 +410,8 @@ huxreg(
   )
 
 ```
+
+
 
 ```{r}
 heights %>%
@@ -351,66 +426,7 @@ heights %>%
   facet_grid(~ sex)
 ```
 
-# Konklusjon
 
-Det er ikke høyde som bestemmer inntekt. Forskjellene er mellom kjønn
-
-
-
-
-
-```{r}
-heights <- heights %>%
-  mutate(
-    income_NOK = income * 10, 
-    height_cm = height * 2,54, 
-    edu_binned = cut_interval(
-      education,
-      breaks = c(0, 12, 14, 16, 22),
-      labels = c("hs", "lc", "cu", "cg"),
-      right = TRUE
-    ), 
-    age_binned = cut_number(
-      age, 
-      n = 5
-    )
-  )
-
-```
-
-```{r}
-heights %>%
-  filter(!is.na(edu_binned)) %>%
-  filter(!is.na(afqt)) %>%
-  filter(income_NOK < 2000000) %>%
-  filter(income > 0) %>%
-  ggplot(
-    mapping = aes(
-      x = height_cm,
-      y = income_NOK
-    )
-  ) + 
-  geom_jitter(
-    mapping = aes(
-      shape = marital, 
-      colour = marital
-    ),
-    size = 1.25,
-    alpha = 0.30,
-  ) + 
-  geom_smooth(
-    formula = y ~ x, 
-    method = MASS::rlm,
-    Colour = "black",
-    lwd = 0.75,
-    se = FALSE
-                       ) +
-      facet_grid(edu_binned ~sex) +
-      xlab("Høyde (140 - 220cm)") + 
-      ylab("inntekt") +
-      ggtitle("inntektsfordeling basert på kjønn, utdanningsnivå og høyde") +
-  theme(legend.position = "bottom")
-```
 
 ```{r}
 heights %>%
@@ -497,6 +513,10 @@ heights %>%
 
 ```
 
+# Konklusjon
+
+Det er ikke høyde som bestemmer inntekt. Forskjellene er mellom kjønn
+
 # Referanse
 
 \<div id="refs\>
@@ -505,37 +525,36 @@ heights %>%
 
 \@book{landerEveryone,
 
-	address = {USA},
+    address = {USA},
 
-	edition = {Second Edition},
+    edition = {Second Edition},
 
-	title = {R for {Everyone}},
+    title = {R for {Everyone}},
 
-	language = {English},
+    language = {English},
 
-	publisher = {Pearson Education, Inc.},
+    publisher = {Pearson Education, Inc.},
 
-	author = {Lander, Jarad P.},
+    author = {Lander, Jarad P.},
 
 }
 
 \@book{johannessenForskningsmetodeOkonomiskadministrativeFag2011,
 
-	edition = {3. Utgave},
+    edition = {3. Utgave},
 
-	title = {Forskningsmetode for Økonomisk-administrative fag},
+    title = {Forskningsmetode for Økonomisk-administrative fag},
 
-	isbn = {978-82-7935-319-5},
+    isbn = {978-82-7935-319-5},
 
-	language = {norsk},
+    language = {norsk},
 
-	publisher = {Abstrakt Forlag},
+    publisher = {Abstrakt Forlag},
 
-	author = {Johannessen, Asbjørn and Christoffersen, Line and Tufte, Per
+    author = {Johannessen, Asbjørn and Christoffersen, Line and Tufte, Per
+
 Arne},
 
-	year = {2011},
+    year = {2011},
 
 }
-
-
