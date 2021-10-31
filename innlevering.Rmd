@@ -272,7 +272,7 @@ heights %>%
 ```
 
 Overfor har vi endret til NOK og Centimeter. Vi har tatt bort de med 2% topp inntekt.
-på venstre side har vi inntekt, på høyre side har vi utdanning, i bunn finner vi høyde.
+På venstre side har vi inntekt, på høyre side har vi utdanning, i bunn finner vi høyde.
 Å så er de delt inn i kjønn. punktene i diagrammet representerer sivilstatus.
 
 ```{r}
@@ -328,6 +328,9 @@ heights %>%
   theme(legend.position = "bottom")
 
 ```
+
+På venstre side har vi inntekt, på høyre side har vi utdanning, i bunn finner vi vekt.
+Å så er de delt inn i kjønn. punktene i diagrammet representerer sivilstatus.
 
 ```{r}
 hoyde %>% 
@@ -559,7 +562,7 @@ heights %>%
 Ut fra undersøkelsene vi har gjort i denne oppgaven, har vi ikke grunnlag til
 å si at høyde har noe innvirkning på inntekt.
 Forskjellene i inntekter ligger mer i kjønn og utdanning.
-Vi har også funnet ut at gifte menn er de som i gjennomsnitt tjener mest. mens 
+Vi har også funnet ut at gifte menn er de som i gjennomsnitt tjener mest. Mens 
 enker er de som kommer dårligest ut. 
 
 # Referanse 
