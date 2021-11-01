@@ -271,9 +271,10 @@ heights %>%
   theme(legend.position = "bottom")
 ```
 
-Overfor har vi endret til NOK og Centimeter. Vi har tatt bort de med 2% topp inntekt.
-På venstre side har vi inntekt, på høyre side har vi utdanning, i bunn finner vi høyde.
-Å så er de delt inn i kjønn. punktene i diagrammet representerer sivilstatus.
+Overfor har vi endret til NOK og Centimeter. Vi har tatt bort de med 2%
+topp inntekt. På venstre side har vi inntekt, på høyre side har vi
+utdanning, i bunn finner vi høyde. Å så er de delt inn i kjønn. punktene
+i diagrammet representerer sivilstatus.
 
 ```{r}
 heights <- heights %>%
@@ -329,8 +330,9 @@ heights %>%
 
 ```
 
-På venstre side har vi inntekt, på høyre side har vi utdanning, i bunn finner vi vekt.
-Å så er de delt inn i kjønn. punktene i diagrammet representerer sivilstatus.
+På venstre side har vi inntekt, på høyre side har vi utdanning, i bunn
+finner vi vekt. Å så er de delt inn i kjønn. punktene i diagrammet
+representerer sivilstatus.
 
 ```{r}
 hoyde %>% 
@@ -340,8 +342,9 @@ hoyde %>%
    geom_point(mapping = aes(colour = sex), alpha = 0.5) +
    geom_smooth(method = "lm", formula = 'y ~ x', se = FALSE)
 ```
-I plottet ovenfor ser vi inntekt i forhold til år med utdannelse. 
-vi ser at menn har høyere lønn i forhold til antall år med utdanning.
+
+I plottet ovenfor ser vi inntekt i forhold til år med utdannelse. vi ser
+at menn har høyere lønn i forhold til antall år med utdanning.
 
 I boxplotten nedenfor har vi delt oversikten på kjønn. et boxplott tar
 utgangspunkt i median. Vi kan her se at høye menn på 80 inch har flest
@@ -373,8 +376,8 @@ hoyde %>%
 
 ```
 
-I oversikten nedenfor har vi sett på sivilstatus. Her får vi opp alle i utvalget, 
-med alle variablene. 
+I oversikten nedenfor har vi sett på sivilstatus. Her får vi opp alle i
+utvalget, med alle variablene.
 
 ```{r}
 hoyde %>% 
@@ -389,9 +392,9 @@ hoyde %>%
 
 ```
 
-I oversikten har vi filtrert bort de som tjener null og de som tjener over 340 000 doller. 
-de resterende er delt inn etter sivilstatus. 
-vi kan her se at gifte menn tjener mest. Vi ser også at enker tjener minst.
+I oversikten har vi filtrert bort de som tjener null og de som tjener
+over 340 000 doller. de resterende er delt inn etter sivilstatus. vi kan
+her se at gifte menn tjener mest. Vi ser også at enker tjener minst.
 
 ```{r}
  hoyde %>% 
@@ -559,13 +562,13 @@ heights %>%
 
 # Konklusjon
 
-Ut fra undersøkelsene vi har gjort i denne oppgaven, har vi ikke grunnlag til
-å si at høyde har noe innvirkning på inntekt.
-Forskjellene i inntekter ligger mer i kjønn og utdanning.
-Vi har også funnet ut at gifte menn er de som i gjennomsnitt tjener mest. Mens 
-enker er de som kommer dårligest ut. 
+Ut fra undersøkelsene vi har gjort i denne oppgaven, har vi ikke
+grunnlag til å si at høyde har noe innvirkning på inntekt. Forskjellene
+i inntekter ligger mer i kjønn og utdanning. Vi har også funnet ut at
+gifte menn er de som i gjennomsnitt tjener mest. Mens enker er de som
+kommer dårligest ut.
 
-# Referanse 
+# Referanse
 
 \<div id="refs\>
 
