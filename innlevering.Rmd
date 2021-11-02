@@ -1,138 +1,153 @@
 ---
-title:"Er det høyde som bestemmer inntekt?" 
+title: "Er det høyde som bestemmer inntekt?" 
 author: "Av Ann Elisabeth og Heidi Marie Rolfsnes"
 output: html_document
 bibliography: MasterDronningene.bib
 ---
 
-------------------------------------------------------------------------
+```{r setup, echo = FALSE}
+suppressMessages(library(tidyverse))
+suppressMessages(library(knitr))
+suppressMessages(library(huxtable))
+suppressMessages(library(car))
+```
 
 # Innledning
 
 I denne oppgaven vil vi se nærmere på om høyde har noe å si på inntekt.
-Utgangspunktet for denne oppgaven bygger på datasettet heights fra
-pakken modelr. Den har vi fått utdelt. Det er hentet fra National
-Longitudial study, som er gjennomført på vegne av U.S Bureau of Labor
-statistics.
+Utgangspunktet for denne oppgaven bygger på datasettet heights fra pakken modelr.
+Den har vi fått utdelt.
+Det er hentet fra National Longitudial study, som er gjennomført på vegne av U.S Bureau of Labor statistics.
 
-Vi skal bruke GitHub, RStudio, og Ggplot når vi skal gjennomføre denne
-undersøkelsen. Oppgaven går ut på å lage forskjellige statistikker rundt
-Heights.
+Vi skal bruke GitHub, RStudio, og Ggplot når vi skal gjennomføre denne undersøkelsen.
+Oppgaven går ut på å lage forskjellige statistikker rundt Heights.
 
 # Literaturgjennomgang
 
-Formålet med denne oppgaven er å se om det er høyden som bestemmer
-hvilken inntekt vi får. Når vi skal sammenligne inntekter er det nok
-ikke høyde som virker som den største påvirkningskraften. Det vi ofte
-hører i media er jo at en sammenligner inntekt på kjønn, alder og
-bosted. Vi kan for eksempel si at menn tjener mer enn kvinner, at eldre
-tjenere mer en yngre eller at folk på Østlandet tjener mer enn folk i
-Nord-Norge. Noen av disse skillene er nok ikke like store lengre. Men at
-det er et skille er det ingen tvil om.
+Formålet med denne oppgaven er å se om det er høyden som bestemmer hvilken inntekt vi får.
+Når vi skal sammenligne inntekter er det nok ikke høyde som virker som den største påvirkningskraften.
+Det vi ofte hører i media er jo at en sammenligner inntekt på kjønn, alder og bosted.
+Vi kan for eksempel si at menn tjener mer enn kvinner, at eldre tjenere mer en yngre eller at folk på Østlandet tjener mer enn folk i Nord-Norge.
+Noen av disse skillene er nok ikke like store lengre.
+Men at det er et skille er det ingen tvil om.
 
-Når vi nå skal finne ut om høyde har en påvirkning på inntekt vil vi
-bruke forskjellige diagram og analyser. Først vil vi gjennomføre en
-deskriptiv statistikk,for å få fram litt informasjon om utvalget vårt.
+Når vi nå skal finne ut om høyde har en påvirkning på inntekt vil vi bruke forskjellige diagram og analyser.
+Først vil vi gjennomføre en deskriptiv statistikk,for å få fram litt informasjon om utvalget vårt.
 
-Vi vil gjennomføre en boxplot som er en miks av et histogram og en
-numerisk analyse.
+Vi vil gjennomføre en boxplot som er en miks av et histogram og en numerisk analyse.
 
-Boxploten dreier seg om data rundt medianen og viser hvordan spredningen
-er i dataen[@landerEveryone]
+Boxploten dreier seg om data rundt medianen og viser hvordan spredningen er i dataen[@landerEveryone]
 
-vi vil gjennomføre et spredningsdiagram (scatter plott), i den vil vi få
-en oversikt over forhold mellom inntekt og høyde. Hvert punkt i
-diagrammet representerer kominasjonen mellom høyde og inntekt pr person
-som er med.
+vi vil gjennomføre et spredningsdiagram (scatter plott), i den vil vi få en oversikt over forhold mellom inntekt og høyde.
+Hvert punkt i diagrammet representerer kominasjonen mellom høyde og inntekt pr person som er med.
 
-Vi kommer også til å bruke regresjonsanalyse, dette bruker vi for å
-finne sammenhengen av variabler. Vi bruker da en avhengig og kan bruke
-en eller flere uavhengige variabler
-[@johannessenForskningsmetodeOkonomiskadministrativeFag2011]. Vår
-avhengige variabel er inntekt, som uavhengig variabel bruker vi høyde
-men vi kommer også til å se på de andre variablene som finnes i
-datasettet.
+Vi kommer også til å bruke regresjonsanalyse, dette bruker vi for å finne sammenhengen av variabler.
+Vi bruker da en avhengig og kan bruke en eller flere uavhengige variabler [@johannessenForskningsmetodeOkonomiskadministrativeFag2011].
+Vår avhengige variabel er inntekt, som uavhengig variabel bruker vi høyde men vi kommer også til å se på de andre variablene som finnes i datasettet.
 
-Formålet med regresjonsanalyse er tre ting, være beskrivende,
-predikasjon og årsaksforklaring. Men disse er ikke nødvendigvis
-gjensidig
-utelukkende[@johannessenForskningsmetodeOkonomiskadministrativeFag2011]
+Formålet med regresjonsanalyse er tre ting, være beskrivende, predikasjon og årsaksforklaring.
+Men disse er ikke nødvendigvis gjensidig utelukkende[@johannessenForskningsmetodeOkonomiskadministrativeFag2011]
 
-\#Innledende informasjon til oppgave
+# Innledende informasjon til oppgave
 
 ```{r}
-heights$heightInt <- cut(heights$height, breaks = 8)
-kable(summary(heights[,1:4]))
+# Lag egen versjon av heights uten å laste hele modelr
+hoyde <-  modelr::heights
+# Vil så bruke hoyde videre
 ```
 
 ```{r}
-heights$heightInt <- cut(heights$height, breaks = 8)
-kable(summary(heights[,5:9]))
+# Bruker snake case på objektnavn
+hoyde$hoyde_int <- cut(hoyde$height, breaks = 8)
+kable(summary(hoyde[,1:4]))
 ```
 
-I denne tabellen har vi laget en statistikk der vi tar for oss: Inntekt,
-Høyde, Vekt, Alder, Sivil status, Kjønn, Antall år med utdanning og
-Scoren de fikk på AFQT. I Statistikkene vi kan se er Min og Max som vi
-kan sammenligne med minste inntekt og høyest inntekt, eller lavest alder
-og høyest alder. Median er tallet vi finner i midten. vis vi setter opp
-alle inntektene i stigende rekkefølge er det tallet som er i midten vi
-kaller median
-[@johannessenForskningsmetodeOkonomiskadministrativeFag2011]
-
-Videre kan vi se på Mean, dette er på norsk gjennomsnitt. Som vil si at
-om vi plusser sammen alle aldrene til personene i utvalget og så deler
-på antallet vil vi komme frem til gjennomsnittsalderen for utvalget
-vårt.
-
-Ut fra undersøkelsen kan vi se et utvalg på 7006 personer, der 3402 er
-menn og 3604 er kvinner. Aldersspennet i utvalget er fra 47 til 56 år,
-der medianen alder er 51 år og gjennomsnittsalderen er 51,33 år.
-Inntektene til de utvalgte går fra 0 USD til 343 830 USD, her kan vi
-også se at medianen er 29589,50 USD mens gjennomsnittet er på 41203,90
-USD. vis vi ser på høyden så er den laveste personen 52 inch og den
-høyeste er 84 Inch. Vi får også en oversikt over sivilstatus der vi
-blant annet kan se at 1124 er single og 3806 er gifte. Antall år i
-utdanning går fra 1 år til 20 år.
-
 ```{r}
-ggplot(heights, mapping = aes(x = height, y = income)) + geom_point()
-
+kable(summary(hoyde[,5:9]))
 ```
 
-Diagrammet viser høyde i forhold til inntekt. På den vertikale linjen
-finner vi inntekten, og på den horisontale finner vi høyden. Her ser vi
-at en liten gruppe med folk i alle høyder som har en relativt høyere
-inntekt en resten, mellom denne gruppen og resten av utvalget er det et
-stort gap. noe vi kan kjenne oss igjen i når vi ser på den deskriptive
-statistikken.
-
 ```{r}
-heightsPosInc <- subset(heights, income > 0)
-ggplot(heightsPosInc, mapping = aes(x = heightInt, y = income)) + scale_y_continuous(trans = scales::log_trans()) +geom_boxplot()
+# skulle lage noen nye variabler, height_cm, weight_kg og bmi
+hoyde <- hoyde %>% 
+  mutate(
+    height_cm = height * 2.4,
+    weight_kg = weight * 0.4536,
+    bmi = weight_kg/((height_cm/100)^2)
+  ) %>% 
+  mutate(married = factor(
+    case_when(# note, summary showed no NA for marital,
+      marital == 'married' ~ TRUE,
+      # all other categories FALSE
+      TRUE ~ FALSE
+      )
+    )
+    )
 ```
 
-I Boxplotet ser vi inntekt i forhold til HeightInt
+I denne tabellen har vi laget en statistikk der vi tar for oss: Inntekt, Høyde, Vekt, Alder, Sivil status, Kjønn, Antall år med utdanning og Scoren de fikk på AFQT.
+I Statistikkene vi kan se er Min og Max som vi kan sammenligne med minste inntekt og høyest inntekt, eller lavest alder og høyest alder.
+Median er tallet vi finner i midten.
+vis vi setter opp alle inntektene i stigende rekkefølge er det tallet som er i midten vi kaller median [@johannessenForskningsmetodeOkonomiskadministrativeFag2011]
+
+Videre kan vi se på Mean, dette er på norsk gjennomsnitt.
+Som vil si at om vi plusser sammen alle aldrene til personene i utvalget og så deler på antallet vil vi komme frem til gjennomsnittsalderen for utvalget vårt.
+
+Ut fra undersøkelsen kan vi se et utvalg på 7006 personer, der 3402 er menn og 3604 er kvinner.
+Aldersspennet i utvalget er fra 47 til 56 år, der medianen alder er 51 år og gjennomsnittsalderen er 51,33 år.
+Inntektene til de utvalgte går fra 0 USD til 343 830 USD, her kan vi også se at medianen er 29589,50 USD mens gjennomsnittet er på 41203,90 USD.
+vis vi ser på høyden så er den laveste personen 52 inch og den høyeste er 84 Inch.
+Vi får også en oversikt over sivilstatus der vi blant annet kan se at 1124 er single og 3806 er gifte.
+Antall år i utdanning går fra 1 år til 20 år.
 
 ```{r}
-heightsPosInc <- subset(heights, income > 0)
-ggplot(heightsPosInc, mapping = aes(x = height, y = income)) +scale_y_continuous(trans = scales::log_trans()) + geom_point(position = "jitter") +geom_smooth(method ='lm')
-## ‘geom_smooth()‘ using formula ’y ~ x’
+ggplot(hoyde, mapping = aes(x = height, y = income)) + geom_point()
 ```
 
-I punkt diagrammet ser vi inntekt og høyde mot hverandre, hver prikk
-representerer en person i utvalget med personens høyde og inntekt.
+Diagrammet viser høyde i forhold til inntekt.
+På den vertikale linjen finner vi inntekten, og på den horisontale finner vi høyden.
+Her ser vi at en liten gruppe med folk i alle høyder som har en relativt høyere inntekt en resten, mellom denne gruppen og resten av utvalget er det et stort gap.
+noe vi kan kjenne oss igjen i når vi ser på den deskriptive statistikken.
 
 ```{r}
-heightsPosInc <- subset(heights, income > 0)
-ggplot(heightsPosInc, mapping = aes(x = height, y = income)) +geom_point(position = "jitter") + geom_smooth(method ='lm')
+# Eventuelt lage subset direkte i pipe
+#heightsPosInc <- subset(heights, income > 0)
+#ggplot(heightsPosInc, mapping = aes(x = heightInt, y = income)) + scale_y_continuous(trans = scales::log_trans()) +geom_boxplot()
+hoyde %>% 
+  filter(income > 0) %>% 
+  ggplot(mapping = aes(x = hoyde_int, y = income)) + 
+  scale_y_continuous(trans = scales::log_trans()) +
+  geom_boxplot()
+```
 
+I Boxplotet ser vi inntekt i forhold til hoyde_int.
+
+```{r}
+# Bruker pipe
+hoyde %>% 
+  filter(income > 0) %>% # ellers warnings fra log_trans()
+  ggplot(mapping = aes(x = height, y = income)) +
+  scale_y_continuous(trans = scales::log_trans()) + 
+  geom_point(position = "jitter") +
+  geom_smooth(method = 'lm', formula = 'y ~ x') # formula = 'y ~ x' for å slippe warning
+```
+
+I punkt diagrammet ser vi inntekt og høyde mot hverandre, hver prikk representerer en person i utvalget med personens høyde og inntekt.
+
+```{r}
+# Igjen enklest å lage subset vha. pipes og filter
+# Ta vekk også de 2% høyeste inntektene
+hoyde %>% 
+  filter(income > 0) %>% 
+  filter(income < 340000) %>% 
+  ggplot(mapping = aes(x = height, y = income)) +
+  geom_point(position = "jitter") + 
+  geom_smooth(method ='lm', formula = 'y ~ x') # formula for å slippe warning
 ```
 
 Hvor mye tjener vi pr ekstra inch?
 
 ```{r}
-summary(lm(income ~ height, data = heights))
-
+summary(lm(income ~ height, data = hoyde))
 ```
 
 En ekstra inch (2,72cm) gir oss \$2982 ekstra i inntekt pr år.
@@ -142,65 +157,67 @@ Er det mer til historien?
 # Oppgave 2 - Hoyde
 
 ```{r}
-eval = FALSE
-data("heights", package = "modelr")
-hoyde= heights
+# Disse er unødvendige nå, eval = FALSE må stå i klammen bak r-en. dvs {r, eval = FALSE}. Er en opsjon for code-chuncken
+#eval = FALSE
+#data("heights", package = "modelr")
+#hoyde= heights
 ```
 
-1.  Deskriptiv statistikk , dvs. kort beskrivelse av dataene
+1.  Deskriptiv statistikk , dvs.
+    kort beskrivelse av dataene
 
-    I denne oversikten ser vi skilte kvinner på 49 år og 68 inch samt
-    gifte menn på 52 år og 65 inch er de som tjener mest, ut i fra denne
-    oversikten. når vi ser på høyde ser vi at gifte kvinner på 70 inch
-    tjener betydelig lavere enn skilte kvinner på 68 inch. Vi skal nå se
-    nermere på statistikkene og lager et histogram.
+    I denne oversikten ser vi skilte kvinner på 49 år og 68 inch samt gifte menn på 52 år og 65 inch er de som tjener mest, ut i fra denne oversikten.
+    når vi ser på høyde ser vi at gifte kvinner på 70 inch tjener betydelig lavere enn skilte kvinner på 68 inch.
+    Vi skal nå se nermere på statistikkene og lager et histogram.
 
     ```{r}
-    library(ggplot2)
-    data("heights")
-    head(heights)
+    # Heights er lastet helt i starten og kalt hoyde, ggplot er del av tidyverse og lastet i første chunk kalt
+    # setup. Chunk-en setup blir kjørt hver gang vi kjører dokumentet
+    # library(ggplot2)
+    # data("heights")
+    # head(heights)
     ```
 
     2.  Lag et histogram av variabelen income
 
-        I dette histogramet ser vi en oversikt over hvor mye hver person
-        har i inntekt.
+        I dette histogramet ser vi en oversikt over hvor mye hver person har i inntekt.
 
     ```{r}
-    hist(heights$income, main = "Histogram over Inntekt", xlab = "Income")
-
+    #hist(heights$income, main = "Histogram over Inntekt", xlab = "Income")
+    # vha pipe
+    hoyde %>% 
+      select(income) %>% 
+      ggplot(mapping = aes(x = income)) +
+      geom_histogram(binwidth = 10000)
     ```
 
 2.1 Hva er forklaringen på utliggerne langt til høyre?
 
-Grunnen til at det ligger en søyle helt til høyre er på grunn av at det
-er en andel personer i utvalget som har en vesentlig høyere inntekt enn
-det resterende utvalget. ut i fra histogrammet kan vi se at de fleste
-tjener under 50000.
+Grunnen til at det ligger en søyle helt til høyre er på grunn av at det er en andel personer i utvalget som har en vesentlig høyere inntekt enn det resterende utvalget.
+ut i fra histogrammet kan vi se at de fleste tjener under 50000.
 
 2.2 Har vi personer uten inntekt i datasettet?
 
-Ja. I histogrammet kan vi se en andel personer med 0 i inntekt.
+Ja.
+I histogrammet kan vi se en andel personer med 0 i inntekt.
 
 # Regresjonsanalyse
 
-Nå skal vi gjennomføre regresjonsanalyse. Først har vi laget en plot som
-viser inntekt i forhold til høyden.
+Nå skal vi gjennomføre regresjonsanalyse.
+Først har vi laget en plot som viser inntekt i forhold til høyden.
 
 ```{r}
 hoyde %>% 
-# plot av inntekt mot høyde
-ggplot(mapping = aes(x = height, y = income)) +
-geom_point() +
-#geom_point(mapping = aes(colour = sex), alpha = 0.5) +
-geom_smooth(method = "lm", formula = 'y ~ x', se = FALSE)
-  
-
+  # plot av inntekt mot høyde
+  ggplot(mapping = aes(x = height, y = income)) +
+  geom_point() +
+  #geom_point(mapping = aes(colour = sex), alpha = 0.5) +
+  geom_smooth(method = "lm", formula = 'y ~ x', se = FALSE)
 ```
 
-Så har vi tatt bort de som har 0 i inntekt, for å teste modellens
-robusthet. vi bruker filter fra funksjonen tidyverse. vi har lagt inn
-skille for å se forskjell på kvinner og menn.
+Så har vi tatt bort de som har 0 i inntekt, for å teste modellens robusthet.
+vi bruker filter fra funksjonen tidyverse.
+vi har lagt inn skille for å se forskjell på kvinner og menn.
 
 ```{r}
 # tømmer hoyde datasettet inn i en pipe
@@ -210,17 +227,16 @@ skille for å se forskjell på kvinner og menn.
    ggplot(mapping = aes(x = height, y = income, colour = sex)) +
    geom_point(mapping = aes(colour = sex), alpha = 0.5) +
    geom_smooth(method = "lm", formula = 'y ~ x', se = FALSE)
-
 ```
 
-I dette plottet ser vi inntekt mot utdanning og kjønn. Her ser vi at
-menn ligger noe høyere enn kvinner i forhold til inntekt, fordi om de
-har like lang utdanning. Her ser vi at høyre siden består mest av menn.
-Generelt er mennene høyere enn kvinnene i dette utvalget, men utfra
-denne oversikten kan vi ikke si at høyde har en påvirkning på inntekt.
+I dette plottet ser vi inntekt mot utdanning og kjønn.
+Her ser vi at menn ligger noe høyere enn kvinner i forhold til inntekt, fordi om de har like lang utdanning.
+Her ser vi at høyre siden består mest av menn.
+Generelt er mennene høyere enn kvinnene i dette utvalget, men utfra denne oversikten kan vi ikke si at høyde har en påvirkning på inntekt.
 
 ```{r}
-heights <- heights %>%
+# Bruk heller egen kopi av heights
+hoyde <- hoyde %>%
   mutate(
     income_NOK = income * 10, 
     height_cm = height * 2,54, 
@@ -238,7 +254,7 @@ heights <- heights %>%
 ```
 
 ```{r}
-heights %>%
+hoyde %>%
   filter(!is.na(edu_binned)) %>%
   filter(!is.na(afqt)) %>%
   filter(income_NOK < 2000000) %>%
@@ -260,7 +276,7 @@ heights %>%
   geom_smooth(
     formula = y ~ x, 
     method = MASS::rlm,
-    Colour = "black",
+    colour = "black", # colour IKKE Colour
     lwd = 0.75,
     se = FALSE
                        ) +
@@ -271,13 +287,22 @@ heights %>%
   theme(legend.position = "bottom")
 ```
 
+<<<<<<< HEAD
 Overfor har vi endret til NOK og Centimeter. Vi har tatt bort de med 2%
 topp inntekt. På venstre side har vi inntekt, på høyre side har vi
 utdanning, i bunn finner vi høyde. Å så er de delt inn i kjønn. punktene
 i diagrammet representerer sivilstatus.
+=======
+Overfor har vi endret til NOK og Centimeter.
+Vi har tatt bort de med 2% topp inntekt.
+På venstre side har vi inntekt, på høyre side har vi utdanning, i bunn finner vi høyde.
+Å så er de delt inn i kjønn.
+punktene i diagrammet representerer sivilstatus.
+>>>>>>> c15f3974c9af95e593806473ff24ef8a492b5e76
 
 ```{r}
-heights <- heights %>%
+# Endret til vår kopi hoyde
+hoyde <- hoyde %>%
   mutate(
     income_NOK = income * 10, 
     weight_kg = weight * 0.45, 
@@ -292,11 +317,11 @@ heights <- heights %>%
       n = 5
     )
   )
-
 ```
 
 ```{r}
-heights %>%
+# Endret til vår kopi hoyde
+hoyde %>%
   filter(!is.na(edu_binned)) %>%
   filter(!is.na(afqt)) %>%
   filter(income_NOK < 2000000) %>%
@@ -318,7 +343,7 @@ heights %>%
   geom_smooth(
     formula = y ~ x, 
     method = MASS::rlm,
-    Colour = "black",
+    colour = "black", # colour IKKE Colour
     lwd = 0.75,
     se = FALSE
                        ) +
@@ -327,12 +352,17 @@ heights %>%
       ylab("inntekt") +
       ggtitle("inntektsfordeling basert på kjønn, utdanningsnivå og vekt") +
   theme(legend.position = "bottom")
-
 ```
 
+<<<<<<< HEAD
 På venstre side har vi inntekt, på høyre side har vi utdanning, i bunn
 finner vi vekt. Å så er de delt inn i kjønn. punktene i diagrammet
 representerer sivilstatus.
+=======
+På venstre side har vi inntekt, på høyre side har vi utdanning, i bunn finner vi vekt.
+Å så er de delt inn i kjønn.
+punktene i diagrammet representerer sivilstatus.
+>>>>>>> c15f3974c9af95e593806473ff24ef8a492b5e76
 
 ```{r}
 hoyde %>% 
@@ -343,13 +373,18 @@ hoyde %>%
    geom_smooth(method = "lm", formula = 'y ~ x', se = FALSE)
 ```
 
+<<<<<<< HEAD
 I plottet ovenfor ser vi inntekt i forhold til år med utdannelse. vi ser
 at menn har høyere lønn i forhold til antall år med utdanning.
+=======
+I plottet ovenfor ser vi inntekt i forhold til år med utdannelse.
+vi ser at menn har høyere lønn i forhold til antall år med utdanning.
+>>>>>>> c15f3974c9af95e593806473ff24ef8a492b5e76
 
-I boxplotten nedenfor har vi delt oversikten på kjønn. et boxplott tar
-utgangspunkt i median. Vi kan her se at høye menn på 80 inch har flest
-treff på 50 000 dollar. mens på kvinne siden er det flest damer som er
-55 inch som har 25000 doller i inntekt.
+I boxplotten nedenfor har vi delt oversikten på kjønn.
+et boxplott tar utgangspunkt i median.
+Vi kan her se at høye menn på 80 inch har flest treff på 50 000 dollar.
+mens på kvinne siden er det flest damer som er 55 inch som har 25000 doller i inntekt.
 
 ```{r}
 hoyde %>% 
@@ -358,13 +393,10 @@ hoyde %>%
    ggplot(mapping = aes(x = height, y = income)) +
    facet_wrap('~sex') +
    geom_boxplot(aes(group = cut_width(height, 5)))
-
 ```
 
-I histogrammet nedenfor har vi også delt inn i kjønn, som vi så i den
-deskriptive statistikken så var det 3402 menn og 3604 kvinner som deltok
-i utvalget. Når vi ser på denne oversikten ser vi at det er flere menn
-en kvinner som har høyere inntekt.
+I histogrammet nedenfor har vi også delt inn i kjønn, som vi så i den deskriptive statistikken så var det 3402 menn og 3604 kvinner som deltok i utvalget.
+Når vi ser på denne oversikten ser vi at det er flere menn en kvinner som har høyere inntekt.
 
 ```{r}
 hoyde %>% 
@@ -373,9 +405,9 @@ hoyde %>%
    ggplot(mapping = aes(x = log(income))) +
    facet_wrap('~sex') +
    geom_histogram()
-
 ```
 
+<<<<<<< HEAD
 I oversikten nedenfor har vi sett på sivilstatus. Her får vi opp alle i
 utvalget, med alle variablene.
 
@@ -395,6 +427,15 @@ hoyde %>%
 I oversikten har vi filtrert bort de som tjener null og de som tjener
 over 340 000 doller. de resterende er delt inn etter sivilstatus. vi kan
 her se at gifte menn tjener mest. Vi ser også at enker tjener minst.
+=======
+I oversikten nedenfor har vi sett på sivilstatus.
+Her får vi opp alle i utvalget, med alle variablene.
+
+I oversikten har vi filtrert bort de som tjener null og de som tjener over 340 000 doller.
+de resterende er delt inn etter sivilstatus.
+vi kan her se at gifte menn tjener mest.
+Vi ser også at enker tjener minst.
+>>>>>>> c15f3974c9af95e593806473ff24ef8a492b5e76
 
 ```{r}
  hoyde %>% 
@@ -406,52 +447,142 @@ her se at gifte menn tjener mest. Vi ser også at enker tjener minst.
 ```
 
 ```{r}
-library(huxtable)
+# skiftet til vårt dataset hoyde
+m1 <- "income ~ height"
+m2 <- "income ~ height + sex + age"
+m3 <- "income ~ sex + education + marital"
 ```
 
 ```{r}
-summary(heights)
+# Kjører modellene på hele datasettet
+lm1 <- lm(m1, data = hoyde)
+lm2 <- lm(m2, data = hoyde)
+lm3 <- lm(m3, data = hoyde)
 ```
 
 ```{r}
 huxreg(
-  list("Modell 1" = lm3, "Modell 2" = lm3_red),
+  lm1, lm2, lm3,
   error_format = "[{statistic}]",
-  note = "Regresjonstabell 3: {stars}. T statistics in brackets."
+  note         = "{stars}. T statistics in brackets."
   )
-
 ```
 
 ```{r}
-lm1 <- lm(income ~ height, data = heights)
-lm2 <- lm(income ~ height + sex + age, data = heights)
-lm3 <- lm(income ~ sex + education + marital, data = heights)
-
+# Forslag til ny model. Interaksjon mht sex. Kjører egentlig en modell
+# for menn og en for kvinner i samme modell. Menn er 0 så for dem blir interaksjonene 0 (0*var = 0)
+# Interaksjonskoeffisientene blir derfor en korreksjon som gjelder for kvinner
+# Log-transformerer inntectsvariabelen for å ende opp med residualer som er mer normal-fordelt
+# Resultatene mht. signifikans blir mer til å stole på
+m4 <- "I(log(income + 1)) ~ sex*(education + afqt + married + height + weight)"
 ```
 
 ```{r}
-summary(lm2)
+lm4 <- lm(m4, data = hoyde)
+# Bare for kladd finnes i huxreg nedenfor
+# summary(lm4)
+```
+
+Trenger vi egentlig høyde, vekt og bmi som variabler?
+Kan sette som H0 at disse egentlig er null og så teste om vi kan forkaste denne hypotesen.
+Kan vi *ikke* det, kan vi trygt sette dem til 0 (dvs. utelate variablene fra modellen).
+
+```{r}
+linearHypothesis(lm4,
+                 c(
+                 "height = 0",
+                 "weight = 0",
+                 "sexfemale:height = 0",
+                 "sexfemale:weight = 0"
+                 )
+                 )
+```
+
+Kan ikke forkaste H0 om at de egentlig er lik 0.
+Prøver derfor med en modell 5
+
+```{r}
+m5 <- "I(log(income + 1)) ~ sex*(education + afqt + married + bmi)"
+lm5 <- lm(m5, data = hoyde)
 ```
 
 ```{r}
-huxreg(lm1, lm2, lm3)
+# Bare for kladd finnes i huxreg nedenfor
+# summary(lm5)
+```
 
+Trenger vi bmi?
+
+```{r}
+linearHypothesis(lm5,
+                 c(
+                 "bmi = 0",
+                 "sexfemale:bmi= 0"
+                 )
+                 )
+```
+
+Kan ikke forkaste H0 om at koeffisientene for bmi er 0.
+Forenkler derfor til en modell 6.
+
+```{r}
+m6 <- "I(log(income + 1)) ~ sex*(education + afqt + married)"
+lm6 <- lm(m6, data = hoyde)
 ```
 
 ```{r}
-huxreg(lm1, lm2, lm3,
+# Bare for kladd finnes i huxreg nedenfor
+# summary(lm6)
+```
+
+```{r}
+huxreg(lm4, lm5, lm6,
        error_format = "[{statistic}]",
        note         = "{stars}. T statistics in brackets."
        )
+```
 
+Så tar vi residualene (feilene) fra den siste modellen og legger til datasettet vårt
+
+```{r}
+hoyde <- modelr::add_residuals(hoyde, lm6)
+```
+
+Plotter residualen fra modell 6 mot høyde, facet mht.
+kjønn og gift/ugift
+
+```{r}
+hoyde %>% 
+  ggplot(mapping = aes(x = height_cm, y = log(income+1))) +
+  facet_grid(rows = vars(married), cols = vars(sex)) +
+  geom_point() +
+  geom_smooth(method = "lm", se = FALSE)
+```
+
+Ser ut som om høyde fremdeles har noe å si for enkelte f.eks ugifte menn.
+Sjekk om samme resultat holder seg hvis vi tar bort inntekt lik 0 og de 2% høyeste inntektene.
+
+# Eldre stoff
+
+```{r}
+# lm1_red <- lm(income ~ height, data = heights[-c(0,5, 340000), ])
+# lm2_red <- lm(income ~ height + sex + age,data = heights[-c(0,5, 340000), ])
+# lm3_red <- lm(income ~ sex + education + marital,data = heights[-c(0,5, 340000), ])
+# Skjønner ikke helt hva dere prøver på her
+# Bruk heller filter, lm er en av de kommandoene som ikke har data som første
+# argument, derfor vi må bruke . for å vise hvor dataene skal inn
+# 
+lm1_red <- hoyde %>% 
+  filter(income > 0) %>% 
+  filter(income < 340000) %>% 
+  lm(formula = 'income ~ height', data = .)
 ```
 
 ```{r}
-lm1_red <- lm(income ~ height, data = heights[-c(0,5, 340000), ])
-lm2_red <- lm(income ~ height + sex + age,data = heights[-c(0,5, 340000), ])
-lm3_red <- lm(income ~ sex + education + marital,data = heights[-c(0,5, 340000), ])
-
+summary(lm1_red)
 ```
+
+Nedenfor her kan det være ting som IKKE virker.
 
 ```{r}
 huxreg(
@@ -562,11 +693,18 @@ heights %>%
 
 # Konklusjon
 
+<<<<<<< HEAD
 Ut fra undersøkelsene vi har gjort i denne oppgaven, har vi ikke
 grunnlag til å si at høyde har noe innvirkning på inntekt. Forskjellene
 i inntekter ligger mer i kjønn og utdanning. Vi har også funnet ut at
 gifte menn er de som i gjennomsnitt tjener mest. Mens enker er de som
 kommer dårligest ut.
+=======
+Ut fra undersøkelsene vi har gjort i denne oppgaven, har vi ikke grunnlag til å si at høyde har noe innvirkning på inntekt.
+Forskjellene i inntekter ligger mer i kjønn og utdanning.
+Vi har også funnet ut at gifte menn er de som i gjennomsnitt tjener mest.
+Mens enker er de som kommer dårligest ut.
+>>>>>>> c15f3974c9af95e593806473ff24ef8a492b5e76
 
 # Referanse
 
